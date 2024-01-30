@@ -25,8 +25,8 @@ CourseSite is a web application for selling and managing online courses. It is b
 
 - Frontend: React.js
 - Backend: Express.js, Node.js
-- Database: MongoDB
-- payment: Razorpay
+- Database: MongoDB , Add the environmental variables using your own credentials
+- payment: Razorpay, , Add the Razorpay apis of your own credentials
 
 ### Prerequisites
 

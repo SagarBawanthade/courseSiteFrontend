@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CourseSite
 
-## Available Scripts
+CourseSite is a web application for selling and managing online courses. It is built using a modern web development stack, including React.js, Express.js, MongoDB, and Node.js.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Authentication:** Allow users to register, log in, and log out.
+- **Profile Section:** Users can view and edit their profiles.
+- **Subscription:** Implement subscription functionality for users.
+- **Payment Gateway:** Integrate a payment gateway for course purchases.
+- **Admin Dashboard:** Provide an admin dashboard for managing the platform.
+- **Course Management:**
+  - Add new courses.
+  - Delete courses.
+- **Lecture Management:**
+  - Add lectures to courses.
+  - Delete lectures.
+ 
+## Images
+![Screenshot (191)](https://github.com/SagarBawanthade/courseSiteFrontend/assets/137410094/4ccb124d-0367-4bf1-80e3-cbc3ffbd513d)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+![Screenshot (192)](https://github.com/SagarBawanthade/courseSiteFrontend/assets/137410094/d1e022c1-e95e-499b-865e-0b1e988e196e)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- Frontend: React.js
+- Backend: Express.js, Node.js
+- Database: MongoDB
+- payment: Razorpay
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js and npm installed.
+- MongoDB installed and running.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation for Frontend
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1. Clone the repository.
+   ```bash
+   git clone https://github.com/your-username/coursesite.git
+   cd coursesite
+2. Install the dependencies
+   ```bash
+   npm install
+3. Start the server
+   ```bash
+   npm start
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Installation for Backend
+- to install the backend for this project go to https://github.com/SagarBawanthade/courseSite
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+### Contributing
+If you'd like to contribute to CourseSite, you are welcome

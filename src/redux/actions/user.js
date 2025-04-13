@@ -74,17 +74,29 @@ export const logout = () => async dispatch => {
 export const buySubscription = () => async dispatch => {
   try {
     dispatch({ type: 'buySubscriptionRequest' });
+    
+    // Show loading state to user
+    console.log("Processing subscription...");
 
     const { data } = await axios.get(`${server}/subscribe`, {
       withCredentials: true,
     });
 
+    // For testing UI states, you can simulate success
     dispatch({ type: 'buySubscriptionSuccess', payload: data.subscriptionId });
+    console.log("Subscription successful:", data.message);
+    
   } catch (error) {
+    // Enhanced error handling
+    const errorMessage = error.response?.data?.message || 'Subscription process failed';
+    console.error("Subscription error:", errorMessage);
+    
     dispatch({
       type: 'buySubscriptionFail',
-      payload: error.response.data.message,
+      payload: errorMessage,
     });
+    
+    // You could also add some UI feedback here
   }
 };
 

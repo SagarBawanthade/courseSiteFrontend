@@ -32,6 +32,7 @@ import { cancelSubscription, loadUser } from '../../redux/actions/user';
 import { fileUploadCss } from '../Auth/Register';
 
 const Profile = ({ user }) => {
+  const [showCancelButton, setShowCancelButton] = useState(false);
   const dispatch = useDispatch();
   const { loading, message, error } = useSelector(state => state.profile);
   const {
@@ -57,6 +58,17 @@ const Profile = ({ user }) => {
     dispatch(cancelSubscription());
   };
 
+
+  const [subscriptionState, setSubscriptionState] = useState('inactive');
+
+// Check localStorage when component mounts
+useEffect(() => {
+  const storedSubscriptionState = localStorage.getItem('subscriptionState');
+  if (storedSubscriptionState === 'active') {
+    setSubscriptionState('active');
+  }
+}, []);
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -79,6 +91,29 @@ const Profile = ({ user }) => {
   }, [dispatch, error, message, subscriptionError, subscriptionMessage]);
 
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+
+  
+useEffect(() => {
+  const subscriptionState = localStorage.getItem('subscriptionState');
+  if (subscriptionState === 'active') {
+    setShowCancelButton(true);
+  }
+}, []);
+
+// Update the UI and localStorage when subscription state changes
+const handleSubscribe = () => {
+  localStorage.setItem('subscriptionState', 'active');
+  setShowCancelButton(true);
+};
+
+const handleCancel = () => {
+  localStorage.setItem('subscriptionState', 'inactive');
+  setShowCancelButton(false);
+};
+
+
+
 
   return (
     <Container minH={'95vh'} maxW="container.lg" py="8">
@@ -111,25 +146,30 @@ const Profile = ({ user }) => {
             <Text children="CreatedAt" fontWeight={'bold'} />
             <Text children={user.createdAt.split('T')[0]} />
           </HStack>
-          {user.role !== 'admin' && (
-            <HStack>
-              <Text children="Subscription" fontWeight={'bold'} />
-              {user.subscription && user.subscription.status === 'active' ? (
-                <Button
-                  isLoading={subscriptionLoading}
-                  onClick={cancelSubscriptionHandler}
-                  color={'yellow.500'}
-                  variant="unstyled"
-                >
-                  Cancel Subscription
-                </Button>
-              ) : (
-                <Link to="/subscribe">
-                  <Button colorScheme={'yellow'}>Subscribe</Button>
-                </Link>
-              )}
-            </HStack>
-          )}
+           {user.role !== 'admin' && (
+      <HStack>
+        <Text children="Subscription" fontWeight={'bold'} />
+        {showCancelButton ? (
+          <Button 
+            isLoading={subscriptionLoading} 
+            onClick={handleCancel} 
+            color={'yellow.500'} 
+            variant="unstyled"
+          >
+            Cancel Subscription
+          </Button>
+        ) : (
+          <Link to="/subscribe">
+            <Button 
+              onClick={handleSubscribe}
+              colorScheme={'yellow'}
+            >
+              Subscribe
+            </Button>
+          </Link>
+        )}
+      </HStack>
+    )}
           <Stack direction={['column', 'row']} alignItems={'center'}>
             <Link to="/updateprofile">
               <Button>Update Profile</Button>
@@ -152,29 +192,41 @@ const Profile = ({ user }) => {
           p="4"
         >
           {user.playlist.map(element => (
-            <VStack w="48" m="2" key={element.course}>
-              <Image
-                boxSize={'full'}
-                objectFit="contain"
-                src={element.poster}
-              />
+      <VStack w="48" m="2" key={element.course}>
+        <Image
+          boxSize={'full'}
+          objectFit="contain"
+          src={element.poster}
+        />
 
-              <HStack>
-                <Link to={`/course/${element.course}`}>
-                  <Button variant={'ghost'} colorScheme="yellow">
-                    Watch Now
-                  </Button>
-                </Link>
+        <HStack>
+          {subscriptionState === 'active' ? (
+            // User can watch if subscribed
+            <Link to={`/course/${element.course}`}>
+              <Button variant={'ghost'} colorScheme="yellow">
+                Watch Now
+              </Button>
+            </Link>
+          ) : (
+            // User cannot watch if not subscribed
+            <Button 
+              variant={'ghost'} 
+              colorScheme="yellow"
+              onClick={() => alert('Please subscribe to watch this course')}
+            >
+              Subscribe to Watch
+            </Button>
+          )}
 
-                <Button
-                  isLoading={loading}
-                  onClick={() => removeFromPlaylistHandler(element.course)}
-                >
-                  <RiDeleteBin7Fill />
-                </Button>
-              </HStack>
-            </VStack>
-          ))}
+          <Button
+            isLoading={loading}
+            onClick={() => removeFromPlaylistHandler(element.course)}
+          >
+            <RiDeleteBin7Fill />
+          </Button>
+        </HStack>
+      </VStack>
+    ))}
         </Stack>
       )}
 
